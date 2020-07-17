@@ -37,10 +37,10 @@ def get_card(n=1):
         if len(available_cards[suit]) == 0:
             del available_cards[suit]
 
-def show_user_set():
+def show_set(player_set):
     print("==============")
-    for card in user_set:
-        print(card["nominal"], card["suit"])
+    for card in player_set:
+        print("{} of {}".format(card["nominal"], card["suit"]))
     print("==============")
         
 def calc_scores(player_set):
@@ -59,7 +59,7 @@ def game():
     # print(available_cards)
 
     get_card(2)
-    show_user_set()
+    show_set(user_set)
     print("Your scores:", calc_scores(user_set), "\n")
         
     while True:
@@ -68,7 +68,7 @@ def game():
             get_card()
         elif user_action == "2":
             break
-        show_user_set()
+        show_set(user_set)
         print("Your scores:", calc_scores(user_set), "\n")
         
 game()
