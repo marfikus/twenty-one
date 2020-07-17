@@ -21,7 +21,7 @@ suits = ["spades", "clubs", "hearts", "diamonds"]
 available_cards = {}
 user_set = []
 
-def get_card(n=1):
+def get_card(player_set, n=1):
     for i in range(n):
         # suit = random.choice(suits)
         suit = random.choice(list(available_cards.keys()))
@@ -30,7 +30,7 @@ def get_card(n=1):
             "suit": suit,
             "nominal": nominal
         }
-        user_set.append(card)
+        player_set.append(card)
         
         available_cards[suit].remove(nominal)
         
@@ -58,14 +58,14 @@ def game():
             # available_cards[suit][nominal] = nominals[nominal]
     # print(available_cards)
 
-    get_card(2)
+    get_card(user_set, 2)
     show_set(user_set)
     print("Your scores:", calc_scores(user_set), "\n")
         
     while True:
         user_action = input("1 - get one more card, 2 - stop\n Your action: ")
         if user_action == "1":
-            get_card()
+            get_card(user_set)
         elif user_action == "2":
             break
         show_set(user_set)
