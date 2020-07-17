@@ -60,7 +60,7 @@ def game():
     show_user_set()
         
     while True:
-        user_action = input("1 - one more card, 2 - stop\n Your action: ")
+        user_action = input("1 - get one more card, 2 - stop\n Your action: ")
         if user_action == "1":
             get_card()
         elif user_action == "2":
