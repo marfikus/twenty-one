@@ -43,9 +43,11 @@ def show_user_set():
         print(card["nominal"], card["suit"])
     print("==============")
         
-def calc_scores():
-    for card in user_set:
-        pass
+def calc_scores(player_set):
+    scores = 0
+    for card in player_set:
+        scores += nominals[card["nominal"]]
+    return scores
 
 def game():
     # nominals_list = list(nominals.keys())
@@ -58,6 +60,7 @@ def game():
 
     get_card(2)
     show_user_set()
+    print("Your scores:", calc_scores(user_set), "\n")
         
     while True:
         user_action = input("1 - get one more card, 2 - stop\n Your action: ")
@@ -66,5 +69,6 @@ def game():
         elif user_action == "2":
             break
         show_user_set()
+        print("Your scores:", calc_scores(user_set), "\n")
         
 game()
