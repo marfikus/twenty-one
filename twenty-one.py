@@ -19,7 +19,6 @@ nominals = {
 suits = ["spades", "clubs", "hearts", "diamonds"]
 
 available_cards = {}
-user_set = []
 
 def get_card(player_set, n=1):
     for i in range(n):
@@ -49,6 +48,9 @@ def calc_scores(player_set):
         scores += nominals[card["nominal"]]
     return scores
 
+user_set = []
+comp_set = []
+
 def game():
     # nominals_list = list(nominals.keys())
     for suit in suits:
@@ -58,17 +60,41 @@ def game():
             # available_cards[suit][nominal] = nominals[nominal]
     # print(available_cards)
 
+    game_over = False
+    is_user_step = True
+    user_stopped_game = False
+
     get_card(user_set, 2)
     show_set(user_set)
     print("Your scores:", calc_scores(user_set), "\n")
+
+    get_card(comp_set, 2)
         
-    while True:
-        user_action = input("1 - get one more card, 2 - stop\n Your action: ")
-        if user_action == "1":
-            get_card(user_set)
-        elif user_action == "2":
-            break
-        show_set(user_set)
-        print("Your scores:", calc_scores(user_set), "\n")
+    while not game_over:
+        if is_user_step:
+            if user_stopped_game:
+                is_user_step = False
+                continue
+            user_action = input("1 - get one more card, 2 - stop\n Your action: ")
+            if user_action == "1":
+                get_card(user_set)
+            elif user_action == "2":
+                # break
+                user_stopped_game = True
+            is_user_step = False
+            show_set(user_set)
+            print("Your scores:", calc_scores(user_set), "\n")
+        else:
+            if calc_scores(comp_set) >= 20:
+                if user_stopped_game:
+                    game_over = True
+                    print("detect_winner")
+                    # detect_winner(user_set, comp_set)
+                # else:
+                #     is_user_step = True
+            else:
+                get_card(comp_set)
+            is_user_step = True
+
         
 game()
