@@ -49,41 +49,31 @@ def calc_scores(player_set):
     return scores
 
 def detect_winner(user_set, comp_set):
-    def print_scores(user_scores, comp_scores):
-        print("Your scores:", user_scores, "\n")
-        print("Comp scores:", comp_scores, "\n")
-
     user_scores = calc_scores(user_set)
     comp_scores = calc_scores(comp_set)
 
     if user_scores == comp_scores:
         print("Tie")
-        print_scores(user_scores, comp_scores)
         return
 
     if user_scores > 21 and comp_scores > 21:
         print("No winners")
-        print_scores(user_scores, comp_scores)
         return
 
     if user_scores <= 21 and comp_scores > 21:
         print("You win")
-        print_scores(user_scores, comp_scores)
         return
 
     if user_scores > 21 and comp_scores <= 21:
         print("You lose")
-        print_scores(user_scores, comp_scores)
         return
 
     if (21 - user_scores) < (21 - comp_scores):
         print("You win")
-        print_scores(user_scores, comp_scores)
         return        
     
     if (21 - user_scores) > (21 - comp_scores):
         print("You lose")
-        print_scores(user_scores, comp_scores)
         return
 
 user_set = []
@@ -103,6 +93,7 @@ def game():
     user_stopped_game = False
 
     get_card(user_set, 2)
+    print("Your set:")
     show_set(user_set)
     print("Your scores:", calc_scores(user_set), "\n")
 
@@ -120,19 +111,22 @@ def game():
                 # break
                 user_stopped_game = True
             is_user_step = False
+            print("Your set:")
             show_set(user_set)
             print("Your scores:", calc_scores(user_set), "\n")
         else:
-            if calc_scores(comp_set) >= 20:
+            comp_scores = calc_scores(comp_set)
+            if comp_scores >= 20:
                 if user_stopped_game:
                     game_over = True
-                    # print("detect_winner")
+                    print("Comp set:")
+                    show_set(comp_set)
+                    print("Comp scores:", comp_scores, "\n")
                     detect_winner(user_set, comp_set)
                 # else:
                 #     is_user_step = True
             else:
                 get_card(comp_set)
             is_user_step = True
-
         
 game()
