@@ -48,6 +48,44 @@ def calc_scores(player_set):
         scores += nominals[card["nominal"]]
     return scores
 
+def detect_winner(user_set, comp_set):
+    def print_scores(user_scores, comp_scores):
+        print("Your scores:", user_scores, "\n")
+        print("Comp scores:", comp_scores, "\n")
+
+    user_scores = calc_scores(user_set)
+    comp_scores = calc_scores(comp_set)
+
+    if user_scores == comp_scores:
+        print("Tie")
+        print_scores(user_scores, comp_scores)
+        return
+
+    if user_scores > 21 and comp_scores > 21:
+        print("No winners")
+        print_scores(user_scores, comp_scores)
+        return
+
+    if user_scores <= 21 and comp_scores > 21:
+        print("You win")
+        print_scores(user_scores, comp_scores)
+        return
+
+    if user_scores > 21 and comp_scores <= 21:
+        print("You lose")
+        print_scores(user_scores, comp_scores)
+        return
+
+    if (21 - user_scores) < (21 - comp_scores):
+        print("You win")
+        print_scores(user_scores, comp_scores)
+        return        
+    
+    if (21 - user_scores) > (21 - comp_scores):
+        print("You lose")
+        print_scores(user_scores, comp_scores)
+        return
+
 user_set = []
 comp_set = []
 
@@ -88,8 +126,8 @@ def game():
             if calc_scores(comp_set) >= 20:
                 if user_stopped_game:
                     game_over = True
-                    print("detect_winner")
-                    # detect_winner(user_set, comp_set)
+                    # print("detect_winner")
+                    detect_winner(user_set, comp_set)
                 # else:
                 #     is_user_step = True
             else:
