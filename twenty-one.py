@@ -76,6 +76,26 @@ def detect_winner(user_set, comp_set):
         print("You lose")
         return
 
+def calc_success_probability(scores):
+    if scores <= 10:
+        # 100%
+        probability = [1, 1, 1, 1]
+    elif 10 < scores <= 13:
+        # 75%
+        probability = [1, 1, 1, 0]
+    elif 13 < scores <= 16:
+        # 50%
+        probability = [1, 1, 0, 0]
+    elif 16 < scores <= 19:
+        # 25%
+        probability = [1, 0, 0, 0]
+
+    ch = random.choice(probability)
+    if ch:
+        return True
+    else:
+        return False
+
 user_set = []
 comp_set = []
 
@@ -126,7 +146,11 @@ def game():
                 # else:
                 #     is_user_step = True
             else:
-                get_card(comp_set)
+                if calc_success_probability(comp_scores):
+                    get_card(comp_set)
+                else:
+                    if user_stopped_game:
+                        game_over = True
             is_user_step = True
         
 game()
