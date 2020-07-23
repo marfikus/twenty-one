@@ -128,7 +128,6 @@ def game():
             if user_action == "1":
                 get_card(user_set)
             elif user_action == "2":
-                # break
                 user_stopped_game = True
             is_user_step = False
             print("Your set:")
@@ -139,18 +138,18 @@ def game():
             if comp_scores >= 20:
                 if user_stopped_game:
                     game_over = True
-                    print("Comp set:")
-                    show_set(comp_set)
-                    print("Comp scores:", comp_scores, "\n")
-                    detect_winner(user_set, comp_set)
-                # else:
-                #     is_user_step = True
             else:
                 if calc_success_probability(comp_scores):
                     get_card(comp_set)
                 else:
+                    print(f"comp is passed. comp_scores: {comp_scores}")
                     if user_stopped_game:
                         game_over = True
             is_user_step = True
+
+    print("Comp set:")
+    show_set(comp_set)
+    print("Comp scores:", comp_scores, "\n")
+    detect_winner(user_set, comp_set)
         
 game()

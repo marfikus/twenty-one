@@ -2,9 +2,16 @@
 import random
 
 while True:
+    input_string = input("Enter number (from 0 to 19) or 'q' for quit: ")
+    if input_string == "q":
+        break
     try:
-        n = int(input(":"))
+        n = int(input_string)
     except ValueError:
+        print("incorrect input")
+        continue
+
+    if n < 0 or n > 19:
         print("incorrect input")
         continue
 
