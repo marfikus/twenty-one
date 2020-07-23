@@ -77,16 +77,16 @@ def detect_winner(user_set, comp_set):
         return
 
 def calc_success_probability(scores):
-    if scores <= 10:
+    if scores <= 12:
         # 100%
         probability = [1, 1, 1, 1]
-    elif 10 < scores <= 13:
+    elif 12 < scores <= 14:
         # 75%
         probability = [1, 1, 1, 0]
-    elif 13 < scores <= 16:
+    elif 14 < scores <= 17:
         # 50%
         probability = [1, 1, 0, 0]
-    elif 16 < scores <= 19:
+    elif 17 < scores <= 19:
         # 25%
         probability = [1, 0, 0, 0]
 
@@ -142,7 +142,7 @@ def game():
                 if calc_success_probability(comp_scores):
                     get_card(comp_set)
                 else:
-                    print(f"comp is passed. comp_scores: {comp_scores}")
+                    # print(f"comp is passed. comp_scores: {comp_scores}")
                     if user_stopped_game:
                         game_over = True
             is_user_step = True
