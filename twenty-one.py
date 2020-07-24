@@ -77,6 +77,12 @@ def detect_winner(user_set, comp_set):
         return
 
 def calc_success_probability(scores):
+    """
+    В зависимости от набранных очков, 
+    подсказывает компьютеру: стоит ли брать ещё карту.
+    Примитивная имитация принятия решения.
+    """
+    # определяем вероятность того, что будет взята ещё 1 карта
     if scores <= 12:
         # 100%
         probability = [1, 1, 1, 1]
@@ -90,16 +96,19 @@ def calc_success_probability(scores):
         # 25%
         probability = [1, 0, 0, 0]
 
+    # добавим немного случайности
     ch = random.choice(probability)
     if ch:
         return True
     else:
         return False
 
+# наборы карт пользователя и компьютера:
 user_set = []
 comp_set = []
 
 def game():
+    # формируем колоду карт:
     # nominals_list = list(nominals.keys())
     for suit in suits:
         # available_cards[suit] = {}
@@ -108,10 +117,14 @@ def game():
             # available_cards[suit][nominal] = nominals[nominal]
     # print(available_cards)
 
+    # флаг окончания игры:
     game_over = False
+    # флаг очереди пользователя:
     is_user_step = True
+    # флаг остановки набора карт пользователем:
     user_stopped_game = False
 
+    # раздаём первые карты:
     get_card(user_set, 2)
     print("Your set:")
     show_set(user_set)
@@ -121,9 +134,12 @@ def game():
         
     while not game_over:
         if is_user_step:
+            # ход пользователя.
+            # если он уже завершил набор, то пропускаем:
             if user_stopped_game:
                 is_user_step = False
                 continue
+            # иначе запрашиваем действие, выполняем..
             user_action = input("1 - get one more card, 2 - stop\n Your action: ")
             if user_action == "1":
                 get_card(user_set)
@@ -134,11 +150,13 @@ def game():
             show_set(user_set)
             print("Your scores:", calc_scores(user_set), "\n")
         else:
+            # ход компьютера.
             comp_scores = calc_scores(comp_set)
             if comp_scores >= 20:
                 if user_stopped_game:
                     game_over = True
             else:
+                # тут комп прикидывает, брать ли ещё карту:
                 if calc_success_probability(comp_scores):
                     get_card(comp_set)
                 else:
