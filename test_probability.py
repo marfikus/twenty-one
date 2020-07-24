@@ -1,4 +1,7 @@
-
+"""
+Черновик, где прикидывал примитивный метод 
+имитации принятия решения компьютером.
+"""
 import random
 
 while True:
@@ -16,12 +19,16 @@ while True:
         continue
 
     if n <= 10:
+        # 100%
         probability = [1, 1, 1, 1]
     elif 10 < n <= 13:
+        # 75%
         probability = [1, 1, 1, 0]
     elif 13 < n <= 16:
+        # 50%
         probability = [1, 1, 0, 0]
     elif 16 < n <= 19:
+        # 25%
         probability = [1, 0, 0, 0]
 
     print(probability)
